@@ -34,3 +34,12 @@
     left: calc(100% / 2 - 50px);
     top: calc(100% / 2 - 7px);
 }
+
+.fireball{
+    background-image: url('../resources/fire-ball.png');
+}
+
+.bugs {
+    background: url('../resources/bug.png');
+    background-size: cover;
+}

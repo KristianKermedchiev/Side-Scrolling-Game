@@ -24,7 +24,7 @@ function initGameObject(){
         createFireball(wizard, fireball){
             let fireballElement = document.createElement('div');
             fireballElement.classList.add('fireball');
-            fireballElement.style.left = wizard.posX + wizard.width + 10 + 'px';
+            fireballElement.style.left = wizard.posX + wizard.width + 'px';
             fireballElement.style.top = wizard.posY + wizard.height / 3 + 5 + 'px';
             fireballElement.style.width = fireball.width + 'px';
             fireballElement.style.height = fireball.height + 'px';
@@ -37,7 +37,7 @@ function initGameObject(){
             bugElement.style.width = stats.width + 'px';
             bugElement.style.height = stats.height + 'px';
             bugElement.style.left = gameScreen.offsetWidth - stats.width + 'px';
-            bugElement.style.top = Math.floor(Math.random() * (gameScreen.offsetHeight - stats.height - 40)) + 'px';
+            bugElement.style.top = Math.floor(Math.random() * (gameScreen.offsetHeight - stats.height * 2)) + 'px';
 
             gameScreen.appendChild(bugElement);
 

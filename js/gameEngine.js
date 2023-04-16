@@ -16,17 +16,17 @@ function gameLoop(state, game, timestamp) {
         game.createFireball(wizard, state.fireball);
     } else {
         game.wizardElement.style.backgroundImage = 'url("./resources/wizard.png")';
-
-    }
+    };
 
     // Spawn bugs
     if (timestamp > state.bugStats.nextSpawnTimeStamp) {
         game.createBug(state.bugStats);
         state.bugStats.nextSpawnTimeStamp = timestamp + Math.random() * state.bugStats.maxSpawnInterval;
-    }
+    };
 
     // Render bugs
-    document.querySelectorAll('.bug').forEach(bug => {
+    let bugElements = document.querySelectorAll('.bug');
+    bugElements.forEach(bug => {
         let posX = parseInt(bug.style.left);
 
         if (posX > 0){
@@ -34,12 +34,29 @@ function gameLoop(state, game, timestamp) {
         } else {
             bug.remove();
             // game over
-        }
-
+        };
     });
 
+    // Render fureballs 
+    document.querySelectorAll('.fireball').forEach(fireball => {
+        let posX = parseInt(fireball.style.left);
 
-    // Render
+        // Detect collision
+        bugElements.forEach(bug => {
+            if (detectCollision(bug, fireball)) {
+                bug.remove();
+                fireball.remove();
+            }
+        });
+
+        if (posX > game.gameScreen.offsetWidth){
+            fireball.remove();
+        } else {
+            fireball.style.left = posX + state.fireball.speed + 'px';
+        };
+    });
+
+    // Render wizard
     wizardElement.style.left = wizard.posX + 'px';
     wizardElement.style.top = wizard.posY + 'px';
 
@@ -64,5 +81,13 @@ function modifyWizardPosition(state, game) {
     if (state.keys.KeyW || state.keys.ArrowUp) {
         wizard.posY = Math.max(wizard.posY - wizard.speed, 0);
     };
+};
 
-}
+function detectCollision(objectA, objectB){
+    let first = objectA.getBoundingClientRect();
+    let second = objectB.getBoundingClientRect();
+
+    let hasCollision = !(first.top > second.botom || first.botom < second.top || first.right < second.left || first.left > second.right)
+
+    return hasCollision;
+};

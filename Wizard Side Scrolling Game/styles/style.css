@@ -27,3 +27,14 @@ body {
     background-color: green;
     cursor: pointer;
 }
+
+.game-screen {
+    width: 100vh;
+    height: 100%;
+    background-color: aqua;
+    display: block;
+}
+
+.hidden {
+    display: none;
+}

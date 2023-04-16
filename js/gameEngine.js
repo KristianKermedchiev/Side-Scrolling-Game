@@ -8,12 +8,18 @@ function gameLoop(state, game, timestamp) {
     const { wizard } = state;
     const { wizardElement } = game;
 
+    game.scoreScreen. textContent = `${state.score} points.` ;
+
     modifyWizardPosition(state, game);
 
     if (state.keys.Space){
         game.wizardElement.style.backgroundImage = "url('./resources/wizard-fire.png')";
 
-        game.createFireball(wizard, state.fireball);
+        if (timestamp > state.fireball.nextSpawnTimestamp) {
+            game.createFireball(wizard, state.fireball);
+            state.fireball.nextSpawnTimestamp = timestamp + state.fireball.fireRate;
+        };
+
     } else {
         game.wizardElement.style.backgroundImage = 'url("./resources/wizard.png")';
     };
@@ -29,11 +35,15 @@ function gameLoop(state, game, timestamp) {
     bugElements.forEach(bug => {
         let posX = parseInt(bug.style.left);
 
+        // Detect collision with wizard
+        if (detectCollision(wizardElement, bug)) {
+            state.gameOver = true;
+        }
+
         if (posX > 0){
             bug.style.left = posX - state.bugStats.speed + 'px';
         } else {
             bug.remove();
-            // game over
         };
     });
 
@@ -44,9 +54,10 @@ function gameLoop(state, game, timestamp) {
         // Detect collision
         bugElements.forEach(bug => {
             if (detectCollision(bug, fireball)) {
+                state.score += state.killScore;
                 bug.remove();
                 fireball.remove();
-            }
+            };
         });
 
         if (posX > game.gameScreen.offsetWidth){
@@ -60,7 +71,15 @@ function gameLoop(state, game, timestamp) {
     wizardElement.style.left = wizard.posX + 'px';
     wizardElement.style.top = wizard.posY + 'px';
 
-    window.requestAnimationFrame(gameLoop.bind(null, state, game));
+    
+    if (state.gameOver) {
+        alert(`Game Over! - Score ${state.score} points!`);
+        game.startScreen.classList.remove('hidden');
+        game.gameScreen.classList.add('hidden');
+    } else {
+        state.score += state.scoreRate;
+        window.requestAnimationFrame(gameLoop.bind(null, state, game));
+    }
 };
 
 function modifyWizardPosition(state, game) {
@@ -87,7 +106,11 @@ function detectCollision(objectA, objectB){
     let first = objectA.getBoundingClientRect();
     let second = objectB.getBoundingClientRect();
 
-    let hasCollision = !(first.top > second.botom || first.botom < second.top || first.right < second.left || first.left > second.right)
-
+    let hasCollision = !(
+        first.top > second.bottom || 
+        first.bottom < second.top || 
+        first.right < second.left || 
+        first.left > second.right
+    );
     return hasCollision;
 };

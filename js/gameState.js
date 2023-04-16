@@ -4,6 +4,10 @@ function initState(){
 
     const state = {
         player: 'Kristian',
+        gameOver: false,
+        score: 0,
+        scoreRate: 1,
+        killScore: 1000,
         wizard: {
             width: 82,
             height: 100,
@@ -16,12 +20,14 @@ function initState(){
             height: 50,
             nextSpawnTimeStamp: 0,
             maxSpawnInterval: 1500,
-            speed: 6,
+            speed: 3,
         },
         fireball: {
             width: 20,
             height: 20,
-            speed: 8
+            speed: 8,
+            nextSpawnTimestamp: 0,
+            fireRate: 500,
         },
         keys: {
             KeyA: false,

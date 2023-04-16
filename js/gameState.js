@@ -18,6 +18,10 @@ function initState(){
             maxSpawnInterval: 1500,
             speed: 6,
         },
+        fireball: {
+            with: 20,
+            height: 20,
+        },
         keys: {
             KeyA: false,
             KeyS: false,

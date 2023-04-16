@@ -10,6 +10,7 @@ const availableKeys = [
     'ArrowDown',
     'ArrowLeft',
     'ArrowRight',
+    'Space'
 ]
 
 document.addEventListener('keydown', (e) => {

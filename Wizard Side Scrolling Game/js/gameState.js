@@ -27,6 +27,7 @@ function initState(){
             ArrowDown: false,
             ArrowLeft: false,
             ArrowRight: false,
+            Space: false,
         },
     }
 

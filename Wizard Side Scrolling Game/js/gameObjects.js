@@ -27,7 +27,7 @@ function initGameObject(){
             bugElement.style.width = stats.width + 'px';
             bugElement.style.height = stats.height + 'px';
             bugElement.style.left = gameScreen.offsetWidth - stats.width + 'px';
-            bugElement.style.top = Math.floor(Math.random() * (gameScreen.offsetHeight - stats.height)) + 'px';
+            bugElement.style.top = Math.floor(Math.random() * (gameScreen.offsetHeight - stats.height - 40)) + 'px';
 
             gameScreen.appendChild(bugElement);
 

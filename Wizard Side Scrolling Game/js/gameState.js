@@ -11,7 +11,22 @@ function initState(){
             posY: startY,
             speed: 10
         },
-        keys: {},
+        bugStats: {
+            width: 50,
+            height: 50,
+            nextSpawnTimeStamp: 0,
+            maxSpawnInterval: 1500,
+        },
+        keys: {
+            KeyA: false,
+            KeyS: false,
+            KeyD: false,
+            KeyW: false,
+            ArrowUp: false,
+            ArrowDown: false,
+            ArrowLeft: false,
+            ArrowRight: false,
+        },
     }
 
     return state;

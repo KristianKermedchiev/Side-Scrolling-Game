@@ -2,15 +2,16 @@ let state = initState();
 let game = initGameObject();
 
 const availableKeys = [
-    'keyW',
-    'keyS',
-    'keyA',
-    'keyD',
-    'arrowUp',
-    'arrowDown',
-    'arrowLeft',
-    'arrowRight',
+    'KeyW',
+    'KeyS',
+    'KeyA',
+    'KeyD',
+    'ArrowUp',
+    'ArrowDown',
+    'ArrowLeft',
+    'ArrowRight',
 ]
+
 document.addEventListener('keydown', (e) => {
     if(availableKeys.includes(e.code)){
         state.keys[e.code] = true;
